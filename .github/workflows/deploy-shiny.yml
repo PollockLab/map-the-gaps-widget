@@ -1,0 +1,36 @@
+on:
+  push:
+     branches:
+       - main
+
+name: Deploy template app to shinyapps.io
+
+jobs:
+  deploy-shiny:
+    name: Deploy to shinyapps.io
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.ACCESS_TOKEN }}
+      ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        
+    steps:
+       - name: 🛎️ Checkout repository
+         uses: actions/checkout@v4
+         with:
+           fetch-depth: 0
+       - name: 💻 Install R
+         uses: r-lib/actions/setup-r@v2
+       - name: Install mapgl package
+         run: |
+          Rscript -e 'install.packages("mapgl")'
+       - id: deploy
+         name: 💎 Deploy to shinyapps.io
+         uses: BDSI-Utwente/shinyapps-deploy-github-action@v1
+         with:
+          # account and application name (https://<accountName>.shinyapps.io/<appName>)
+          appName: mapthegap
+          accountName: blitzthegap
+
+          # token and secret obtained from https://www.shinyapps.io/admin/#/tokens
+          accountToken: ${{ secrets.TOKEN }}
+          accountSecret: ${{ secrets.SECRET }}
