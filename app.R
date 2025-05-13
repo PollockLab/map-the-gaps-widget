@@ -1,10 +1,7 @@
 library(shiny)
 library(bslib)
 library(mapgl)
-library(sf)
 library(shinythemes)
-
-thematic::thematic_shiny()
 
 bounds = readRDS("data/bounds.rds")
 
@@ -57,7 +54,7 @@ server <- function(input, output, session) {
   
   output$map <- renderMaplibreCompare({
     
-    m1 = maplibre(bounds = bounds, 
+    m1 = maplibre(bounds = c(-177.40777,35.93066,-12.79625,71.44204), 
                   style = carto_style("dark-matter")) |>
       add_raster_source(
         id = "inat",
