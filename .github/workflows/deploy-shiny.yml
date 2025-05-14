@@ -18,11 +18,6 @@ jobs:
          uses: actions/checkout@v4
          with:
            fetch-depth: 0
-       - name: 💻 Install R
-         uses: r-lib/actions/setup-r@v2
-       - name: Install mapgl package
-         run: |
-          Rscript -e 'install.packages("mapgl")'
        - id: deploy
          name: 💎 Deploy to shinyapps.io
          uses: BDSI-Utwente/shinyapps-deploy-github-action@v1
