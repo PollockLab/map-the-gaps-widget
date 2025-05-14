@@ -1,9 +1,12 @@
+# install mapgl if not already installed
+list.of.packages <- c("mapgl")
+new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
+if(length(new.packages)) install.packages(new.packages)
+
+library(mapgl)
 library(shiny)
 library(bslib)
-library(mapgl)
 library(shinythemes)
-
-bounds = readRDS("data/bounds.rds")
 
 ui <- page_sidebar(
   title = "Map the gaps!",
